@@ -6,7 +6,7 @@ import torch
 
 from locked_dropout import LockedDropout
 
-device = 'cuda' if torch.is_available() else 'cpu'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
 class LayerNorm(nn.Module):
