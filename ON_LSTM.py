@@ -1,3 +1,5 @@
+import copy
+
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
@@ -27,6 +29,7 @@ class LinearDropConnect(nn.Linear):
             bias=bias
         )
         self.dropout = dropout
+        self._weight = copy.copy(self.weight)
 
     def sample_mask(self):
         if self.dropout == 0.:
@@ -181,4 +184,3 @@ if __name__ == "__main__":
     x.data.normal_()
     lstm = ONLSTMStack([10, 10, 10], chunk_size=10)
     print(lstm(x, lstm.init_hidden(10))[1])
-
