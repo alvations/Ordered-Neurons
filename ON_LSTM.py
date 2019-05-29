@@ -77,7 +77,7 @@ class ONLSTMCell(nn.Module):
             nn.Linear(input_size, 4 * hidden_size + self.n_chunk * 2, bias=True),
             # LayerNorm(3 * hidden_size)
         ).to(device)
-        self.hh = LinearDropConnect(hidden_size*4, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
+        self.hh = LinearDropConnect(hidden_size, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
 
         # self.c_norm = LayerNorm(hidden_size)
 
