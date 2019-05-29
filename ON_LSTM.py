@@ -51,9 +51,9 @@ class LinearDropConnect(nn.Linear):
         if self.training:
             if sample_mask:
                 self.sample_mask()
-            #print(type(input))
-            #print(type(self._weight))
-            #print(type(self.bias))
+            print(input.is_cuda)
+            print(self._weight.is_cuda)
+            print(self.bias.is_cuda)
             return F.linear(input, self._weight, self.bias)
         else:
             return F.linear(input, self.weight * (1 - self.dropout),
