@@ -29,7 +29,7 @@ class LinearDropConnect(nn.Linear):
             bias=bias
         )
         self.dropout = dropout
-        self._weight = None
+        self._weight = self.weight.masked_fill(mask, 0.)
 
     def sample_mask(self):
         if self.dropout == 0.:
