@@ -49,9 +49,9 @@ class LinearDropConnect(nn.Linear):
             if sample_mask:
                 self.sample_mask()
 
-            print('input', input.is_cuda, end='\n')
-            print('weight', self._weight.is_cuda, end='\n')
-            print('bias', self.bias.is_cuda, end='\n')
+            #print('input', input.is_cuda, end='\n')
+            #print('weight', self._weight.is_cuda, end='\n')
+            #print('bias', self.bias.is_cuda, end='\n')
             self._weight = self._weight.to(device)
             return F.linear(input, self._weight, self.bias)
         else:
@@ -77,7 +77,7 @@ class ONLSTMCell(nn.Module):
             nn.Linear(input_size, 4 * hidden_size + self.n_chunk * 2, bias=True),
             # LayerNorm(3 * hidden_size)
         ).to(device)
-        self.hh = LinearDropConnect(hidden_size, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
+        self.hh = LinearDropConnect(4*hidden_size, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
 
         # self.c_norm = LayerNorm(hidden_size)
 
