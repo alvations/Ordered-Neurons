@@ -32,13 +32,13 @@ class LinearDropConnect(nn.Linear):
         )
         self.dropout = dropout
         self.sample_mask()
-        
-        self.weight.to(device)
-        self.bias.to(device)
+        self._weight = self._weight.to(device)
+        self.weight = self.weight.to(device)
+        self.bias = self.bias.to(device)
 
     def sample_mask(self):
         if self.dropout == 0.:
-            self._weight = self.weight.
+            self._weight = self.weight
         else:
             mask = self.weight.new_empty(
                 self.weight.size(),
