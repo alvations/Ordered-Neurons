@@ -6,6 +6,8 @@ import torch
 
 from locked_dropout import LockedDropout
 
+device = 'cuda' if torch.is_available() else 'cpu'
+
 
 class LayerNorm(nn.Module):
 
@@ -71,8 +73,8 @@ class ONLSTMCell(nn.Module):
         self.ih = nn.Sequential(
             nn.Linear(input_size, 4 * hidden_size + self.n_chunk * 2, bias=True),
             # LayerNorm(3 * hidden_size)
-        )
-        self.hh = LinearDropConnect(hidden_size, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect)
+        ).to(device)
+        self.hh = LinearDropConnect(hidden_size, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
 
         # self.c_norm = LayerNorm(hidden_size)
 
