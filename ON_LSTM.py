@@ -32,7 +32,7 @@ class LinearDropConnect(nn.Linear):
         )
         self.dropout = dropout
         self.sample_mask()
-        √
+        
         self.weight.to(device)
         self.bias.to(device)
 
