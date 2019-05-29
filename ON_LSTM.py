@@ -31,7 +31,7 @@ class LinearDropConnect(nn.Linear):
             bias=bias
         )
         self.dropout = dropout
-        self.sample_mask()
+        self._weight = self.weight
 
     def sample_mask(self):
         if self.dropout == 0.:
@@ -77,7 +77,7 @@ class ONLSTMCell(nn.Module):
             nn.Linear(input_size, 4 * hidden_size + self.n_chunk * 2, bias=True),
             # LayerNorm(3 * hidden_size)
         ).to(device)
-        self.hh = LinearDropConnect(hidden_size, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
+        self.hh = LinearDropConnect(hidden_size*4, hidden_size*4+self.n_chunk*2, bias=True, dropout=dropconnect).to(device)
 
         # self.c_norm = LayerNorm(hidden_size)
 
