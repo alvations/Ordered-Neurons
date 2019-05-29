@@ -1,5 +1,6 @@
 import torch
 
+device = 'cuda' if torch.cuda.is_available else 'cpu'
 
 def repackage_hidden(h):
     """Wraps hidden states in new Tensors,
@@ -26,7 +27,7 @@ def get_batch(source, i, args, seq_len=None, evaluation=False):
     seq_len = min(seq_len if seq_len else args.bptt, len(source) - 1 - i)
     data = source[i:i+seq_len]
     target = source[i+1:i+1+seq_len].view(-1)
-    return data, target
+    return data.to(device), target.to(device)
 
 
 def load_embeddings_txt(path):
